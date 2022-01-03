@@ -22,7 +22,7 @@ public class Main {
 		//int tailleDomaine, int durete(contraintes), int nbVar, int densite (arcs)
 		
 	
-		csp.createCSP(2, 100, 3, 100);
+		csp.createCSP(2, 1, 3, 1);
 		
 		csp.afficherCSP();
 	}

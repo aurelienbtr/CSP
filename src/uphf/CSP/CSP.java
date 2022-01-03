@@ -17,6 +17,7 @@ public class CSP {
 	//public ArrayList<Integer> arcEntree;
 	//public ArrayList<Integer> arcSortie;
 
+	public ArrayList<Contraintes> listeContraintes = new ArrayList<Contraintes>(); // toutes les contraintes de mon CSP
 
 
 	//public ArrayList<Integer> listeValeurs; // la liste des valeurs du domaine
@@ -36,8 +37,8 @@ public class CSP {
 	{
 
 
-		int densiteMtn = 100; // la densite est de base egal à 100
-		int dureteMtn = 100; // la durete est de base egal a 100
+		int densiteMtn = 10000; // la densite est de base egal à 100
+		int dureteMtn = 10000; // la durete est de base egal a 100
 		int nbArcs = 0;
 		int nbMaxArcs= 0;
 
@@ -46,6 +47,8 @@ public class CSP {
 		ArrayList<Integer> listeValeursDomaines = new ArrayList<Integer>();
 		//ArrayList<Variables> listeVariables = new ArrayList<Variables>();
 
+		
+		
 		/**
 		 * ON CREE ALEATOIREMENT DES VARIABLES ET DES DOMAINES (pour chaque variable)
 		 */
@@ -85,13 +88,27 @@ public class CSP {
 		 *  ON CREE DES CONTRAINTES             
 		 */
 
-		for(int i = 0; i < this.listeArcs.size(); i++) 
+		for(int i = 0; i < this.listeVariables.size(); i++) 
 		{
-			this.listeArcs.get(i).genererContraintes2();
+			for(int j=0; j<this.listeVariables.size(); j++)
+			{
+				Contraintes c = new Contraintes(this.listeVariables.get(i).getIdV(), this.listeVariables.get(j).getIdV());
+				listeContraintes.add(c);
+			}
 
 		}
 
-
+		/* ON AJOUTE MES CRONTAINTES A MES ARCS QUANDS IL Y A UN LIEN
+		 */
+		ajoutContraintesArcs();
+		
+		for(int i=0; i<this.listeArcs.size(); i++)
+		{
+			System.out.println("il y a " + this.listeArcs.get(i).getListeContraintes().size() + "contraintes pour  l'arc " +i);
+		}
+		
+		
+		
 		/**
 		 * ON SUPPRIME UN NB D'ARCS SELON LA DENSITE QUE L'ON SOUHAITE
 		 */
@@ -120,25 +137,26 @@ public class CSP {
 		 */
 
 		//int nbContraintesMax = this.listeArcs.get(0).getListeContraintes().size();
-		
+
 		//System.out.println("Il y  a " + this.listeArcs.get(i).getListeContraintes().size() + "contraintes");
-		int nbContraintesMax = this.listeArcs.size();
+		/**		int nbContraintesMax = this.listeArcs.size();
 		for(int i=0; i< this.listeArcs.size(); i++)
 		{
-//			System.out.println("Il y  a " + this.listeArcs.get(i).getListeContraintes().size() + "contraintes");
+			//			System.out.println("Il y  a " + this.listeArcs.get(i).getListeContraintes().size() + "contraintes");
 			nbContraintes= this.listeArcs.get(i).getListeContraintes().size();
-//			System.out.println("nb contraintes = "+ nbContraintes);
+			System.out.println("nb contraintes = "+ nbContraintes);
 
 			while (dureteMtn > durete)
 			{
-				int auhasard = new Random().nextInt(nbContraintes);
-	//			System.out.println("on supprime" + auhasard);
-				this.listeArcs.get(i).getListeContraintes().remove(auhasard); //on supprime au hasard des contraintes entre 0 et nbContraintes
+			//	int auhasard = new Random().nextInt(nbContraintes);
+			//	System.out.println("on supprime" + auhasard);
+				this.listeArcs.get(i).getListeContraintes().remove(2); //on supprime au hasard des contraintes entre 0 et nbContraintes
 				//this.listeArcs.get(i).getListeContraintes().remove(new Random().nextInt(nbContraintes));
 				nbContraintes= this.listeArcs.get(i).getListeContraintes().size();
 				dureteMtn = nbContraintes / nbContraintesMax;
 			}
-		}
+		}**/
+		
 
 		verifCSP();
 
@@ -175,13 +193,42 @@ public class CSP {
 
 
 		System.out.println("\n Contraintes = \n");
-		for (int i = 0; i < this.listeArcs.size(); i++) {
-			this.listeArcs.get(i).toStringContraintes();
+		for (int i = 0; i < this.listeContraintes.size(); i++) {
+			System.out.println("Contraintes "+ i + " = ["+ this.listeContraintes.get(i).getSommet1() + ", " + this.listeContraintes.get(i).getSommet2()+ "]");
 		}
 
 	}
 
+	/**
+	 *  FONCTION QUI ME PERMET D'AJOUTER MES CONTRAINTES A MES ARCS
+	 */
+	public void ajoutContraintesArcs()
+	{
+		for (int i = 0; i < this.listeContraintes.size(); i++) {
+			for (int j=0; j< this.listeArcs.size(); j++)
+			{
+				if(this.listeContraintes.get(i).getSommet1() == this.getListeArcs().get(j).getV1().getIdV() || this.listeContraintes.get(i).getSommet2() == this.getListeArcs().get(j).getV2().getIdV())
+				{
 
+					ArrayList<Contraintes> contraintesAAjouter = new ArrayList<Contraintes>();
+					contraintesAAjouter.add(this.listeContraintes.get(i));
+					this.getListeArcs().get(j).setListeContraintes(contraintesAAjouter);
+				}
+				
+			}
+		}
+	}
+
+
+	public void genererContraintes3(Variables v1, Variables v2) {
+		for(int i = 0; i < v1.getDomaine().listeValeurs.size(); i++) {
+			for(int j = 0; j < v2.getDomaine().listeValeurs.size(); j++) {
+				//Contraintes c = new Contraintes(v1.getDomaine().listeValeurs.get(i), v2.getDomaine().listeValeurs.get(j));
+				Contraintes c = new Contraintes(v1.getIdV(), v2.getIdV());
+				listeContraintes.add(c);
+			}
+		}
+	}
 
 	/** PAS FONCTIONNEL **/
 	public boolean verifCSP() { //on retourne vrai si le CSP est valide
@@ -204,14 +251,18 @@ public class CSP {
 				else
 				{
 					valide = false;
-					System.out.println("Il y a un pb, il y a un arcs entre 2 var sans qu'il y ai de contraintes");
+					System.out.println("Il y a un pb, il y a un arcs entre 2 var sans qu'il y ai de contraintes" + arcs.getV2().getIdV() + " et "+ arcs.getListeContraintes().get(i).getSommet2());
 					return valide;
 				}
 
 			}
 		}
+		System.out.println("Il n'y a pas de pb, a chaque fois qu'il y a un arc, il y a un/des contraintes");
 		return valide;
+		
 	}
+	
+	
 
 
 
@@ -227,6 +278,8 @@ public class CSP {
 			System.out.println(" La valeur du noeud " + i + " : " + this.listeVariables.get(i).getValeur() + "\n");
 	}
 
+	
+	
 
 	/**
 	 * 			GETTERS ET SETTERS DU CSP (on en a besoin pour les fns)
@@ -269,7 +322,7 @@ public class CSP {
 	public void setListeDomaine(ArrayList<Domaines> listeDomaine) {
 		this.listeDomaine = listeDomaine;
 	}
-	
+
 	/**public ArrayList<Integer> getArcEntree() {
 		return arcEntree;
 	}
@@ -282,6 +335,6 @@ public class CSP {
 	public void setArcSortie(ArrayList<Integer> arcSortie) {
 		this.arcSortie = arcSortie;
 	}
-**/
+	 **/
 
 }	
