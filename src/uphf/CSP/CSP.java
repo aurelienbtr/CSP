@@ -207,7 +207,7 @@ public class CSP {
 		for (int i = 0; i < this.listeContraintes.size(); i++) {
 			for (int j=0; j< this.listeArcs.size(); j++)
 			{
-				if(this.listeContraintes.get(i).getSommet1() == this.getListeArcs().get(j).getV1().getIdV() || this.listeContraintes.get(i).getSommet2() == this.getListeArcs().get(j).getV2().getIdV())
+				if(this.listeContraintes.get(i).getSommet1() == this.getListeArcs().get(j).getV1().getIdV() && this.listeContraintes.get(i).getSommet2() == this.getListeArcs().get(j).getV2().getIdV())
 				{
 
 					ArrayList<Contraintes> contraintesAAjouter = new ArrayList<Contraintes>();
