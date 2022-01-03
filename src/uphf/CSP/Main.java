@@ -19,10 +19,10 @@ public class Main {
 		
 			//forward checking
 		
-		//int tailleDomaine, int durete, int nbVar, int densite
+		//int tailleDomaine, int durete(contraintes), int nbVar, int densite (arcs)
 		
 	
-		csp.createCSP(2, 1, 3, 1);
+		csp.createCSP(2, 100, 3, 100);
 		
 		csp.afficherCSP();
 	}
