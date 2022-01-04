@@ -163,7 +163,7 @@ public class CSP {
 				{
 
 
-					if (this.listeArcs.get(j).getV1().getIdV() == this.listeContraintes.get(i).getSommet1() && this.listeArcs.get(j).getV2().getIdV() == this.listeContraintes.get(i).getSommet2())
+					if (this.listeArcs.get(j).getV1().getIdV() == s1 && this.listeArcs.get(j).getV2().getIdV() == s2)
 					{
 						System.out.println("on supprime l'arc" + s1 +" et"+ s2);
 						this.listeArcs.remove(j);
