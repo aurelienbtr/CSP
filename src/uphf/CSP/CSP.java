@@ -8,7 +8,8 @@ public class CSP {
 	public int durete; // on supprime un pourcentage (durete%) des contraintes
 	public ArrayList<Arcs> listeArcs = new ArrayList<Arcs>();
 	public int densite;
-	//public int nbVar;
+	public int nbVar;
+
 	public int nbContraintes;
 	//public int tailleDomaine;
 	public ArrayList<Variables> listeVariables = new ArrayList<Variables>();
@@ -22,20 +23,8 @@ public class CSP {
 
 	//public ArrayList<Integer> listeValeurs; // la liste des valeurs du domaine
 
-	/**
-	 * Il nous faut des listes d'arcs en entree
-	 * et des listes d'arcs en sortie
-	 * 
-	 * par exemple l'arc 1:2 et l'arc 2:3 sont definissables par une liste d'arc en entree et sortie
-	 * 
-	 * On sort de 1 et on entre en 2
-	 * On sort en 2 et on entre en 3
-	 * 
-	 */
-
 	public void createCSP(int tailleDomaine, int durete, int nbVar, int densite)
 	{
-
 
 		int densiteMtn = 100; // la densite est de base egal à 100
 		int dureteMtn = 100; // la durete est de base egal a 100
@@ -46,7 +35,6 @@ public class CSP {
 
 		ArrayList<Integer> listeValeursDomaines = new ArrayList<Integer>();
 		//ArrayList<Variables> listeVariables = new ArrayList<Variables>();
-
 
 
 		/**
@@ -154,11 +142,11 @@ public class CSP {
 				int s1,s2=0;
 				s1=this.listeContraintes.get(auhasard).getSommet1();
 				s2=this.listeContraintes.get(auhasard).getSommet2();
-				
+
 				this.listeContraintes.remove(auhasard); // on supprime une contrainte au hasard pour atteindre la durete souhaite.
 				System.out.println("une contraine a ete supprime" + s1 + "avec "+s2);
 				System.out.println(this.listeArcs.size());
-				
+
 				for(int j=0; j<this.listeArcs.size(); j++)
 				{
 
@@ -362,5 +350,21 @@ public class CSP {
 		this.arcSortie = arcSortie;
 	}
 	 **/
+
+	public int getNbVar() {
+		return nbVar;
+	}
+
+	public void setNbVar(int nbVar) {
+		this.nbVar = nbVar;
+	}
+
+	public ArrayList<Contraintes> getListeContraintes() {
+		return listeContraintes;
+	}
+
+	public void setListeContraintes(ArrayList<Contraintes> listeContraintes) {
+		this.listeContraintes = listeContraintes;
+	}
 
 }	

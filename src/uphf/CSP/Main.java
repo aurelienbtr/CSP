@@ -1,8 +1,10 @@
 package uphf.CSP;
+import uphf.CSP.fn.Backtracking;
 
 public class Main {
 	
 	static CSP csp = new CSP();
+	static Backtracking BT = new Backtracking();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -22,9 +24,11 @@ public class Main {
 		//int tailleDomaine, int durete(contraintes), int nbVar, int densite (arcs)
 		
 	
-		csp.createCSP(2, 80, 3,80);
+		csp.createCSP(4, 101, 3, 101);
 		
 		csp.afficherCSP();
+		System.out.println("\n --- BACK TRACKING --- \n");
+		//BT.BackT(csp);
 	}
 
 }
