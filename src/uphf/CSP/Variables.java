@@ -1,5 +1,7 @@
 package uphf.CSP;
 
+import java.util.ArrayList;
+
 public class Variables {
 
 	// LES VARIABLES CEST DES NOEUDS
@@ -8,9 +10,9 @@ public class Variables {
 	public int valeur;
 	
 
-	public Domaines domaine; // le domaine lié à la variable
+	//public Domaines domaine; // le domaine lié à la variable
 	
-
+	public ArrayList<Integer> domaine;
 
 	public Variables(int idV, int valeur) {
 		super();
@@ -23,13 +25,13 @@ public class Variables {
 	public void setIdV(int idV) {
 		this.idV = idV;
 	}
-	public Domaines getDomaine() {
+/**	public Domaines getDomaine() {
 		return domaine;
 	}
 	public void setDomaine(Domaines domaine) {
 		this.domaine = domaine;
 	}
-
+**/
 	public int getValeur() {
 		return valeur;
 	}
@@ -37,27 +39,44 @@ public class Variables {
 	public void setValeur(int valeur) {
 		this.valeur = valeur;
 	}
-	public Variables(int idV, int valeur, Domaines domaine) {
+	public Variables(int idV, int valeur, ArrayList<Integer> domaine) {
 		super();
 		this.idV = idV;
 		this.valeur = valeur;
 		this.domaine = domaine;
 	}
 	
+	
+	
 
 	
+	public ArrayList<Integer> getDomaine() {
+		return domaine;
+	}
+	public void setDomaine(ArrayList<Integer> domaine) {
+		this.domaine = domaine;
+	}
 	@Override
 	public String toString() {
 		return "[idV=" + idV +  ", domaine=";
 	}
 	
-	public void afficherDomaines(){
+/**	public void afficherDomaines(){
         for(int i = 0; i < domaine.listeValeurs.size(); i++){
             System.out.print(domaine.listeValeurs.get(i) + ", ");
         }
         System.out.println("]");
     }
+**/
 	
+	public void afficherDomaines2()
+	{
+		for(int i=0; i<domaine.size(); i++)
+		{
+			System.out.println(domaine.get(i)+", ");
+		}
+		
+	}
 
 
 }

@@ -45,7 +45,7 @@ public class Arcs {
 	}
 
 
-	public void genererContraintes() {
+	/**public void genererContraintes() {
 		for(int i = 0; i < v1.getDomaine().listeValeurs.size(); i++) {
 			for(int j = 0; j < v2.getDomaine().listeValeurs.size(); j++) {
 			//Contraintes c = new Contraintes(v1.getDomaine().listeValeurs.get(i), v2.getDomaine().listeValeurs.get(j));
@@ -54,7 +54,8 @@ public class Arcs {
 			}
 		}
 	}
-
+**/
+	
 	public void genererContraintes2() {
 		Contraintes c = new Contraintes(v1.getIdV(), v2.getIdV());
 		listeContraintes.add(c); 

@@ -1,5 +1,5 @@
 package uphf.CSP;
-import java.util.ArrayList;
+/**import java.util.ArrayList;
 
 public class Domaines {
 	public int taille; // taille du domaine
@@ -41,3 +41,4 @@ public class Domaines {
 	
 	
 }
+**/

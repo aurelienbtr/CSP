@@ -24,9 +24,12 @@ public class Main {
 		//int tailleDomaine, int durete(contraintes), int nbVar, int densite (arcs)
 		
 	
-		csp.createCSP(4, 101, 3, 101);
-		
+		csp.createCSP(3, 101, 4, 101);
+		if (csp.verifCSP())
+		{
 		csp.afficherCSP();
+		}
+		else System.out.println("Le CSP est mal cree, il y a des arcs sans contraintes");
 		System.out.println("\n --- BACK TRACKING --- \n");
 		//BT.BackT(csp);
 	}

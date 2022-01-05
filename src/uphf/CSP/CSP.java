@@ -13,8 +13,8 @@ public class CSP {
 	public int nbContraintes;
 	//public int tailleDomaine;
 	public ArrayList<Variables> listeVariables = new ArrayList<Variables>();
-	public ArrayList<Domaines> listeDomaine;
-
+	//public ArrayList<Domaines> listeDomaine;
+	public ArrayList<Integer> listeDomaine;
 	//public ArrayList<Integer> arcEntree;
 	//public ArrayList<Integer> arcSortie;
 
@@ -41,16 +41,23 @@ public class CSP {
 		 * ON CREE ALEATOIREMENT DES VARIABLES ET DES DOMAINES (pour chaque variable)
 		 */
 
+		ArrayList<Integer> domaineDeVar = new ArrayList<Integer>();
+
+		for(int j=0; j<tailleDomaine; j++)
+		{
+			domaineDeVar.add(new Random().nextInt(9)); // 	on cree des domaines avec des valeurs entre 0 et 9
+
+
+		}
+
 		for(int i=0; i<nbVar; i++)
 		{
-			for(int j=0; j<tailleDomaine; j++)
-			{
-				listeValeursDomaines.add(new Random().nextInt(9)); // 	on cree des domaines avec des valeurs entre 0 et 9
-			}
-			Domaines d = new Domaines(listeValeursDomaines);	// on cree des domaines pour chaque noeud
 
 
-			Variables var = new Variables(i,-1,d); // i= id, -1 pcq il n'y a pas encore de solutions, et d=domaine
+			//Domaines d = new Domaines(listeValeursDomaines);	// on cree des domaines pour chaque noeud
+
+
+			Variables var = new Variables(i,-1,domaineDeVar); // i= id, -1 pcq il n'y a pas encore de solutions, et d=domaine
 			this.listeVariables.add(var);
 		}
 
@@ -90,13 +97,6 @@ public class CSP {
 		/* ON AJOUTE MES CRONTAINTES A MES ARCS QUANDS IL Y A UN LIEN
 		 */
 		ajoutContraintesArcs();
-
-		System.out.println(this.listeArcs.size());
-		/**for(int i=0; i<this.listeArcs.size(); i++)
-		{
-			System.out.println("il y a " + this.listeArcs.get(i).getListeContraintes().size() + "contraintes pour  l'arc " +i);
-		}**/
-
 
 
 		/**
@@ -196,7 +196,9 @@ public class CSP {
 		System.out.println("\n Noeuds + Domaines = \n");
 		for (int i = 0; i < this.listeVariables.size(); i++) {
 			System.out.print(this.listeVariables.get(i).toString() + " : ");
-			listeVariables.get(i).afficherDomaines();
+			//listeVariables.get(i).afficherDomaines();
+			listeVariables.get(i).afficherDomaines2();
+			System.out.println("]");
 		}
 
 		System.out.println("\n Arcs = \n");
@@ -234,7 +236,7 @@ public class CSP {
 	}
 
 
-	public void genererContraintes3(Variables v1, Variables v2) {
+	/**	public void genererContraintes3(Variables v1, Variables v2) {
 		for(int i = 0; i < v1.getDomaine().listeValeurs.size(); i++) {
 			for(int j = 0; j < v2.getDomaine().listeValeurs.size(); j++) {
 				//Contraintes c = new Contraintes(v1.getDomaine().listeValeurs.get(i), v2.getDomaine().listeValeurs.get(j));
@@ -243,8 +245,12 @@ public class CSP {
 			}
 		}
 	}
+	 **/
 
-	/** PAS FONCTIONNEL **/
+
+	/** FONCTION QUI PERMET DE VERIFIER LA CREATION DU CSP
+	 * EN EFFET, SI IL EXISTE DES ARCS SANS CONTRAINTES ALORS LE CSP NEST PAS VALIDE
+	 **/
 	public boolean verifCSP() { //on retourne vrai si le CSP est valide
 		boolean valide=false;
 		// ici on doit verifier les couples
@@ -296,7 +302,7 @@ public class CSP {
 
 
 	/**
-	 * 			GETTERS ET SETTERS DU CSP (on en a besoin pour les fns)
+	 * 			GETTERS ET SETTERS DU CSP (on en a besoin pour les fonctions)
 	 * 
 	 */
 
@@ -330,10 +336,10 @@ public class CSP {
 	public void setListeVariables(ArrayList<Variables> listeVariables) {
 		this.listeVariables = listeVariables;
 	}
-	public ArrayList<Domaines> getListeDomaine() {
+	public ArrayList<Integer> getListeDomaine() {
 		return listeDomaine;
 	}
-	public void setListeDomaine(ArrayList<Domaines> listeDomaine) {
+	public void setListeDomaine(ArrayList<Integer> listeDomaine) {
 		this.listeDomaine = listeDomaine;
 	}
 
