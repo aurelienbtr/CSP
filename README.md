@@ -1,8 +1,8 @@
 # CSP 2022
  TP pour le cours de CSP
  
- ##Creation de CSP aléatoire
- ##Verification de la bonne génération du CSP
+ ## Creation de CSP aléatoire
+ ## Verification de la bonne génération du CSP
  ## Resolution du CSP  
  ### -BackTracking chronologique
  ### -BackJumping
