@@ -5,6 +5,9 @@ import java.util.Map;
 
 public class Solution {
 	
+	/**
+	 * CLASS qui me permettra d'avoir une solution
+	 */
 	Map<Integer, Integer> assignation;
 	
 	public Solution(){
