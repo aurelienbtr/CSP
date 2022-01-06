@@ -1,6 +1,7 @@
 package uphf.CSP;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class CSP {
@@ -298,6 +299,46 @@ public class CSP {
 			System.out.println(" La valeur du noeud " + i + " : " + this.listeVariables.get(i).getValeur() + "\n");
 	}
 
+	/**
+	 * FONCTION QUI PERMET DE SAVOIR SI UNE SOLUTION POUR UNE VARIABLE EST COHERENTE AVEC LES AUTRES, AVEC LE CSP...
+	 * 
+	 */
+	public boolean isCoherent(int i, int valeurSol) {
+		boolean ok=false;
+
+		Variables v = listeVariables.get(i); // on recupere la variable a tester
+		v.setIdV(valeurSol);
+		if(i != 0)
+			for (int j = 0; j < i; j ++){
+				Variables v2 = listeVariables.get(j);
+				Arcs arc = new Arcs(v, v2);
+				Contraintes ctrTemp = contrainteATrouver(v, v2); // on cherche si il y a une contraintes entre ses 2 variables
+
+				if (ctrTemp != null && arc.getListeContraintes().contains(ctrTemp))
+					ok = true; // si il y a une contrainte c'est ok, donc valide
+				else{
+					return false;
+				}
+			}
+		else{
+			return true;
+		}
+		return ok;
+	}
+
+	/**
+	 * FONCTION QUI PERMET DE SAVOIR SI UNE CONTRAINTES EXISTE ENTRE 2 VARIABLES, ET AINSI DE LA RETOURNER
+	 */
+
+	private Contraintes contrainteATrouver(Variables v1, Variables v2) {
+		Iterator<Contraintes> iterator = listeContraintes.iterator();
+		while (iterator.hasNext()) {
+			Contraintes ctr = (Contraintes) iterator.next();
+			if ((ctr.getSommet1()== v1.getIdV()) && (ctr.getSommet2()==v2.getIdV()) || ( (ctr.getSommet1()== (v2.getIdV()) && (ctr.getSommet2() ==v1.getIdV()))))
+				return ctr;
+		}
+		return null;
+	}
 
 
 

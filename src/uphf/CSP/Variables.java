@@ -73,7 +73,7 @@ public class Variables {
 	{
 		for(int i=0; i<domaine.size(); i++)
 		{
-			System.out.println(domaine.get(i)+", ");
+			System.out.println(domaine.get(i) + ",");
 		}
 		
 	}
