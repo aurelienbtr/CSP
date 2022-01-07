@@ -4,6 +4,7 @@ import uphf.CSP.Contraintes;
 import uphf.CSP.Variables;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class Backtracking
 				domain.remove(0);
 				if (csp.isCoherent(i, x)){
 					valide = true;
-					System.out.println("coherent" +i + "et "+ x);
+					//System.out.println("coherent" +i + "et "+ x);
 				}
 			}
 			if (!valide){
@@ -48,7 +49,38 @@ public class Backtracking
 			System.out.println("BackTracking : UNSAT (pas de solution)");
 			return solution= null;
 		}
+		System.out.println("Les solutions de mes variables sont :\n");
+		affecteVariableValeurs(csp, solution);
+		
+		
+		Iterator iterator = solution.assignation.entrySet().iterator();
+        while (iterator.hasNext()) {
+          Map.Entry mapentry = (Map.Entry) iterator.next();
+          System.out.println("variable: "+mapentry.getKey()
+                            + " | valeur: " + mapentry.getValue());
+        } 
+
 		return solution;
 	}
 
+	public void affecteVariableValeurs(CSP csp, Solution solution)
+	{
+		for(int k=0; k< csp.nbVar; k++)
+		{
+			
+			Iterator iterator = solution.assignation.entrySet().iterator();
+	        while (iterator.hasNext()) {
+	          Map.Entry mapentry = (Map.Entry) iterator.next();
+	          if (mapentry.getKey().equals(csp.listeVariables.get(k).getIdV()))
+				{
+					csp.listeVariables.get(k).setValeur((int) mapentry.getValue());
+				}
+	        } 
+				//System.out.println(e.getValue());
+				
+			
+		}
+	}
+
+	
 }

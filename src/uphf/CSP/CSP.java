@@ -34,7 +34,7 @@ public class CSP {
 
 		//int nbContraintes =0;
 
-		ArrayList<ArrayList<Integer>> listeValeursDomaines = new ArrayList<ArrayList<Integer>>();
+		//ArrayList<ArrayList<Integer>> listeValeursDomaines = new ArrayList<ArrayList<Integer>>();
 		//ArrayList<Variables> listeVariables = new ArrayList<Variables>();
 
 
@@ -116,7 +116,7 @@ public class CSP {
 		// sachant que la densite est le nombre d'arc divise par le nombre d'arc maximum possible
 
 		nbArcs= listeArcs.size();
-		System.out.println("Il y a "+ nbArcs +" arcs en tout");
+		//System.out.println("Il y a "+ nbArcs +" arcs en tout");
 		nbMaxArcs = listeArcs.size();
 
 		while(densiteMtn > densite) //100 > 50
@@ -126,9 +126,9 @@ public class CSP {
 			nbArcs= nbArcs-1;
 
 		}
-		for(int i=0; i< nbArcs; i++)
+	/**	for(int i=0; i< nbArcs; i++)
 		{System.out.println("il y a"+this.listeArcs.get(i).getListeContraintes().size()+" contraintes sur cet arc");}
-
+**/
 
 		// a partir d'ici logiquement il y aura plus de contraintes que d'arcs
 
@@ -141,7 +141,7 @@ public class CSP {
 		{
 			//			System.out.println("Il y  a " + this.listeArcs.get(i).getListeContraintes().size() + "contraintes");
 			nbContraintes=  this.listeContraintes.size();
-			System.out.println("nb contraintes = "+ nbContraintes);
+		//	System.out.println("nb contraintes = "+ nbContraintes);
 
 			while (dureteMtn > durete)
 			{
@@ -173,7 +173,7 @@ public class CSP {
 
 
 				nbContraintes--;
-				System.out.println(this.listeArcs.size());
+			//	System.out.println(this.listeArcs.size());
 				dureteMtn = nbContraintes / nbContraintesMax;
 			}
 		}
@@ -203,10 +203,10 @@ public class CSP {
 
 		System.out.println("\n Noeuds + Domaines = \n");
 		for (int i = 0; i < this.listeVariables.size(); i++) {
-			System.out.print(this.listeVariables.get(i).toString() + " : ");
+			System.out.print(this.listeVariables.get(i).toString());
 			//listeVariables.get(i).afficherDomaines();
-			listeVariables.get(i).afficherDomaines2();
-			System.out.println("]");
+			//listeVariables.get(i).afficherDomaines2();
+			System.out.println("");
 		}
 
 		System.out.println("\n Arcs = \n");
@@ -324,7 +324,7 @@ public class CSP {
 				if (ctrTemp != null)// && arc.getListeContraintes().contains(ctrTemp))
 					ok = true; // si il y a une contrainte c'est ok, donc valide
 				else{
-					System.out.println("la contrainte entre "+v.getIdV()+" et "+v2.getIdV() +" nas pas était trouve");
+					System.out.println("la contrainte entre "+v.getIdV()+" et "+v2.getIdV() +" n'as pas était trouve");
 					return false;
 				}
 			}
@@ -338,17 +338,6 @@ public class CSP {
 	 * FONCTION QUI PERMET DE SAVOIR SI UNE CONTRAINTES EXISTE ENTRE 2 VARIABLES, ET AINSI DE LA RETOURNER
 	 */
 
-	private Contraintes contrainteATrouver(Variables v1, Variables v2) {
-		Iterator<Contraintes> iterator = listeContraintes.iterator();
-		while (iterator.hasNext()) {
-			Contraintes ctr = (Contraintes) iterator.next();
-			if ((ctr.getSommet1()== v1.getIdV()) && (ctr.getSommet2()==v2.getIdV()) || ( (ctr.getSommet1()== (v2.getIdV()) && (ctr.getSommet2() ==v1.getIdV()))))
-			{
-				System.out.println("contraintes trouver !!!!!! entre"+v1.getIdV()+ "et "+ v2.getIdV());
-				return ctr;}
-		}
-		return null;
-	}
 
 	private Contraintes contrainteATrouver2(Variables v1, Variables v2)
 	{
@@ -356,7 +345,7 @@ public class CSP {
 		{
 			if ((a.getListeContraintes().get(0).getSommet1()== v1.getIdV()) && (a.getListeContraintes().get(0).getSommet2()==v2.getIdV()) || ( (a.getListeContraintes().get(0).getSommet1()== (v2.getIdV()) && (a.getListeContraintes().get(0).getSommet2() ==v1.getIdV()))))
 			{
-				System.out.println("contraintes trouver !!!!!! entre"+v1.getIdV()+ "et "+ v2.getIdV());
+				//System.out.println("contraintes trouver !!!!!! entre"+v1.getIdV()+ "et "+ v2.getIdV());
 				return a.getListeContraintes().get(0);
 			}
 		}
@@ -406,20 +395,6 @@ public class CSP {
 	public void setListeDomaine(ArrayList<Integer> listeDomaine) {
 		this.listeDomaine = listeDomaine;
 	}
-
-	/**public ArrayList<Integer> getArcEntree() {
-		return arcEntree;
-	}
-	public void setArcEntree(ArrayList<Integer> arcEntree) {
-		this.arcEntree = arcEntree;
-	}
-	public ArrayList<Integer> getArcSortie() {
-		return arcSortie;
-	}
-	public void setArcSortie(ArrayList<Integer> arcSortie) {
-		this.arcSortie = arcSortie;
-	}
-	 **/
 
 	public int getNbVar() {
 		return nbVar;

@@ -56,9 +56,9 @@ public class Variables {
 	public void setDomaine(ArrayList<Integer> domaine) {
 		this.domaine = domaine;
 	}
-	@Override
+
 	public String toString() {
-		return "[idV=" + idV +  ", domaine=";
+		return "idV=" + idV +  ", domaine=" + domaine;
 	}
 	
 /**	public void afficherDomaines(){

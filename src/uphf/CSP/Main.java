@@ -13,9 +13,9 @@ public class Main {
 	static Backtracking BT = new Backtracking();
 	static Backjumping BJ = new Backjumping();
 	static ForwardChecking FC = new ForwardChecking();
+	static Solution s = new Solution();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		// Le but est de generer des CSP (environs 10) avec 5 variables
 
@@ -27,23 +27,26 @@ public class Main {
 
 		// back jumping
 
-		//forward checking
+		// forward checking
 
 		//int tailleDomaine, int durete(contraintes), int nbVar, int densite (arcs)
 		
 
 
-		csp.createCSP(3, 101, 3, 101); // CSP avec des domaines de 3, une durete de 101, 4 variables, et une densite de 101
+		csp.createCSP(10, 101, 10, 101); // CSP avec des domaines de 3, une durete de 101, 4 variables, et une densite de 101
 		if (csp.verifCSP()) // si chaque arcs contient au moins une contrainte
 		{
 			csp.afficherCSP();
 
 			System.out.println("\n --- BACK TRACKING --- \n");
 			long debutExec = System.currentTimeMillis();
+			
+			
+		//	System.out.println("LES SOLUTIOOOOONS");
 			BT.BackT(csp);
 			System.out.println("Temps de resolution BT = " + (System.currentTimeMillis() - debutExec) + " ms");
-			System.out.println("LES SOLUTIOOOOONS");
-			
+			//
+			//s.toString();			
 
 		/**	System.out.println("\n --- BACK JUMPING --- \n");
 
