@@ -34,7 +34,7 @@ public class CSP {
 
 		//int nbContraintes =0;
 
-		ArrayList<Integer> listeValeursDomaines = new ArrayList<Integer>();
+		ArrayList<ArrayList<Integer>> listeValeursDomaines = new ArrayList<ArrayList<Integer>>();
 		//ArrayList<Variables> listeVariables = new ArrayList<Variables>();
 
 
@@ -42,24 +42,30 @@ public class CSP {
 		 * ON CREE ALEATOIREMENT DES VARIABLES ET DES DOMAINES (pour chaque variable)
 		 */
 
-		ArrayList<Integer> domaineDeVar = new ArrayList<Integer>();
 
-		for(int j=0; j<tailleDomaine; j++)
-		{
-			domaineDeVar.add(new Random().nextInt(9)); // 	on cree des domaines avec des valeurs entre 0 et 9
-
-
-		}
+		ArrayList<Integer> domaineNull = new ArrayList<Integer>();
+		domaineNull.add(0);
 
 		for(int i=0; i<nbVar; i++)
 		{
-
-
 			//Domaines d = new Domaines(listeValeursDomaines);	// on cree des domaines pour chaque noeud
 
-
-			Variables var = new Variables(i,-1,domaineDeVar); // i= id, -1 pcq il n'y a pas encore de solutions, et d=domaine
+			Variables var = new Variables(i,-1,domaineNull); // i= id, -1 pcq il n'y a pas encore de solutions, et d=domaine
 			this.listeVariables.add(var);
+		}
+		for(Variables v : listeVariables)
+		{
+			ArrayList<Integer> domaineDeVar = new ArrayList<Integer>();
+			for(int j=0; j<tailleDomaine; j++)
+			{
+
+				int auhasard = new Random().nextInt(9);
+				domaineDeVar.add(auhasard); // 	on cree des domaines avec des valeurs entre 0 et 9
+				//System.out.println(domaineDeVar); // petite verif dans la console
+			}
+
+			v.setDomaine(domaineDeVar); //on ajoute les domaines a chaque valeurs
+
 		}
 
 
@@ -120,7 +126,8 @@ public class CSP {
 			nbArcs= nbArcs-1;
 
 		}
-
+		for(int i=0; i< nbArcs; i++)
+		{System.out.println("il y a"+this.listeArcs.get(i).getListeContraintes().size()+" contraintes sur cet arc");}
 
 
 		// a partir d'ici logiquement il y aura plus de contraintes que d'arcs
@@ -312,11 +319,12 @@ public class CSP {
 			for (int j = 0; j < i; j ++){
 				Variables v2 = listeVariables.get(j);
 				Arcs arc = new Arcs(v, v2);
-				Contraintes ctrTemp = contrainteATrouver(v, v2); // on cherche si il y a une contraintes entre ses 2 variables
+				Contraintes ctrTemp = contrainteATrouver2(v, v2); // on cherche si il y a une contraintes entre ses 2 variables
 
-				if (ctrTemp != null && arc.getListeContraintes().contains(ctrTemp))
+				if (ctrTemp != null)// && arc.getListeContraintes().contains(ctrTemp))
 					ok = true; // si il y a une contrainte c'est ok, donc valide
 				else{
+					System.out.println("la contrainte entre "+v.getIdV()+" et "+v2.getIdV() +" nas pas était trouve");
 					return false;
 				}
 			}
@@ -335,7 +343,22 @@ public class CSP {
 		while (iterator.hasNext()) {
 			Contraintes ctr = (Contraintes) iterator.next();
 			if ((ctr.getSommet1()== v1.getIdV()) && (ctr.getSommet2()==v2.getIdV()) || ( (ctr.getSommet1()== (v2.getIdV()) && (ctr.getSommet2() ==v1.getIdV()))))
-				return ctr;
+			{
+				System.out.println("contraintes trouver !!!!!! entre"+v1.getIdV()+ "et "+ v2.getIdV());
+				return ctr;}
+		}
+		return null;
+	}
+
+	private Contraintes contrainteATrouver2(Variables v1, Variables v2)
+	{
+		for (Arcs a : this.listeArcs)
+		{
+			if ((a.getListeContraintes().get(0).getSommet1()== v1.getIdV()) && (a.getListeContraintes().get(0).getSommet2()==v2.getIdV()) || ( (a.getListeContraintes().get(0).getSommet1()== (v2.getIdV()) && (a.getListeContraintes().get(0).getSommet2() ==v1.getIdV()))))
+			{
+				System.out.println("contraintes trouver !!!!!! entre"+v1.getIdV()+ "et "+ v2.getIdV());
+				return a.getListeContraintes().get(0);
+			}
 		}
 		return null;
 	}
@@ -413,5 +436,8 @@ public class CSP {
 	public void setListeContraintes(ArrayList<Contraintes> listeContraintes) {
 		this.listeContraintes = listeContraintes;
 	}
+
+
+
 
 }	
