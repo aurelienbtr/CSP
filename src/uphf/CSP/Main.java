@@ -31,9 +31,8 @@ public class Main {
 
 		//int tailleDomaine, int durete(contraintes), int nbVar, int densite (arcs)
 		
-
-
-		csp.createCSP(10, 101, 10, 101); // CSP avec des domaines de 3, une durete de 101, 4 variables, et une densite de 101
+		
+		csp.createCSP(3, 1, 4,0.8); // CSP avec des domaines de 3, une durete de 30%, 4 variables, et une densite de 50%
 		if (csp.verifCSP()) // si chaque arcs contient au moins une contrainte
 		{
 			csp.afficherCSP();

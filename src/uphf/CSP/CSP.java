@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class CSP {
 
-	public int durete; // on supprime un pourcentage (durete%) des contraintes
+	public double durete; // on supprime un pourcentage (durete%) des contraintes
 	public ArrayList<Arcs> listeArcs = new ArrayList<Arcs>();
 	public int densite;
 	public int nbVar;
@@ -24,11 +24,11 @@ public class CSP {
 
 	//public ArrayList<Integer> listeValeurs; // la liste des valeurs du domaine
 
-	public void createCSP(int tailleDomaine, int durete, int nbVar, int densite)
+	public void createCSP(int tailleDomaine, double durete, int nbVar, double densite)
 	{
 
-		int densiteMtn = 100; // la densite est de base egal à 100
-		int dureteMtn = 100; // la durete est de base egal a 100
+		double densiteMtn = 1.0; // la densite est de base egal à 1
+		double dureteMtn = 1.0; // la durete est de base egal a 100
 		int nbArcs = 0;
 		int nbMaxArcs= 0;
 
@@ -97,7 +97,6 @@ public class CSP {
 				Contraintes c = new Contraintes(this.listeVariables.get(i).getIdV(), this.listeVariables.get(j).getIdV());
 				listeContraintes.add(c);
 			}
-
 		}
 
 
@@ -121,14 +120,14 @@ public class CSP {
 
 		while(densiteMtn > densite) //100 > 50
 		{
-			densiteMtn = nbArcs/nbMaxArcs;
+			densiteMtn = nbArcs * 1.0 /nbMaxArcs;
 			this.listeArcs.remove(new Random().nextInt(nbArcs)); //on supprime au hasard des arcs entre 0 et nbArcs
 			nbArcs= nbArcs-1;
 
 		}
-	/**	for(int i=0; i< nbArcs; i++)
+		/**	for(int i=0; i< nbArcs; i++)
 		{System.out.println("il y a"+this.listeArcs.get(i).getListeContraintes().size()+" contraintes sur cet arc");}
-**/
+		 **/
 
 		// a partir d'ici logiquement il y aura plus de contraintes que d'arcs
 
@@ -137,11 +136,12 @@ public class CSP {
 		 */
 
 		int nbContraintesMax = this.listeContraintes.size();
+		
 		for(int i=0; i < nbContraintesMax; i++)
 		{
 			//			System.out.println("Il y  a " + this.listeArcs.get(i).getListeContraintes().size() + "contraintes");
-			nbContraintes=  this.listeContraintes.size();
-		//	System.out.println("nb contraintes = "+ nbContraintes);
+			nbContraintes = this.listeContraintes.size();
+			//	System.out.println("nb contraintes = "+ nbContraintes);
 
 			while (dureteMtn > durete)
 			{
@@ -150,31 +150,33 @@ public class CSP {
 				int s1,s2=0;
 				s1=this.listeContraintes.get(auhasard).getSommet1();
 				s2=this.listeContraintes.get(auhasard).getSommet2();
+				
+					this.listeContraintes.remove(auhasard);
+					System.out.println("une contraine a ete supprime" + s1 + " avec "+s2);
+					System.out.println(this.listeArcs.size());
+					//ok
+				
+				 // on supprime une contrainte au hasard pour atteindre la durete souhaite.
+				
 
-				this.listeContraintes.remove(auhasard); // on supprime une contrainte au hasard pour atteindre la durete souhaite.
-				System.out.println("une contraine a ete supprime" + s1 + "avec "+s2);
-				System.out.println(this.listeArcs.size());
-
+				// SI ON SUPPRIME UNE CONTRAINTES ALORS ON SUPPRIME EGALEMENT L'ARC
 				for(int j=0; j<this.listeArcs.size(); j++)
 				{
-
-
 					if (this.listeArcs.get(j).getV1().getIdV() == s1 && this.listeArcs.get(j).getV2().getIdV() == s2)
 					{
-						System.out.println("on supprime l'arc" + s1 +" et"+ s2);
+						System.out.println("on supprime l'arc entre " + s1 +" et"+ s2);
 						this.listeArcs.remove(j);
 					}
 				}
 
-				//maintenant on supprime l'arcs qui contenait cette contraintes
 
 
-
-
-
-				nbContraintes--;
-			//	System.out.println(this.listeArcs.size());
-				dureteMtn = nbContraintes / nbContraintesMax;
+				nbContraintes=nbContraintes-1;
+				//	System.out.println(this.listeArcs.size());
+				System.out.println(nbContraintes);
+				System.out.println(nbContraintesMax);
+				dureteMtn = nbContraintes * 1.0 / nbContraintesMax;
+				System.out.println(dureteMtn);
 			}
 		}
 
@@ -318,13 +320,13 @@ public class CSP {
 		if(i != 0)
 			for (int j = 0; j < i; j ++){
 				Variables v2 = listeVariables.get(j);
-				Arcs arc = new Arcs(v, v2);
+				//Arcs arc = new Arcs(v, v2);
 				Contraintes ctrTemp = contrainteATrouver2(v, v2); // on cherche si il y a une contraintes entre ses 2 variables
 
 				if (ctrTemp != null)// && arc.getListeContraintes().contains(ctrTemp))
 					ok = true; // si il y a une contrainte c'est ok, donc valide
 				else{
-					System.out.println("la contrainte entre "+v.getIdV()+" et "+v2.getIdV() +" n'as pas était trouve");
+					//System.out.println("la contrainte entre "+v.getIdV()+" et "+v2.getIdV() +" n'as pas était trouve");
 					return false;
 				}
 			}
@@ -343,6 +345,7 @@ public class CSP {
 	{
 		for (Arcs a : this.listeArcs)
 		{
+		//	System.out.println(a.getListeContraintes().get(0).getSommet1());
 			if ((a.getListeContraintes().get(0).getSommet1()== v1.getIdV()) && (a.getListeContraintes().get(0).getSommet2()==v2.getIdV()) || ( (a.getListeContraintes().get(0).getSommet1()== (v2.getIdV()) && (a.getListeContraintes().get(0).getSommet2() ==v1.getIdV()))))
 			{
 				//System.out.println("contraintes trouver !!!!!! entre"+v1.getIdV()+ "et "+ v2.getIdV());
@@ -359,10 +362,10 @@ public class CSP {
 	 * 
 	 */
 
-	public int getDurete() {
+	public double getDurete() {
 		return durete;
 	}
-	public void setDurete(int durete) {
+	public void setDurete(double durete) {
 		this.durete = durete;
 	}
 	public ArrayList<Arcs> getListeArcs() {
