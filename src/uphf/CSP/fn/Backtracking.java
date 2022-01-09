@@ -15,9 +15,8 @@ public class Backtracking
 		Solution solution = new Solution();
 		int i = 0;
 		int x = 0;
-		Map<Integer, List<Integer>> domaines = new HashMap<Integer, List<Integer>>();
+		Map<Integer, List<Integer>> domaines = new HashMap<Integer, List<Integer>>(); // utilisation d'une map, la variable a une liste d'entiers (domaines) associés
 		while(i < csp.getListeVariables().size()){
-			System.out.println("oui");
 			domaines.put(i, new ArrayList<Integer>(csp.getListeVariables().get(i).getDomaine()));
 			i++;
 		}
@@ -28,23 +27,23 @@ public class Backtracking
 			while (!valide && !domain.isEmpty()){
 				x = domain.get(0);
 				domain.remove(0);
-				if (csp.isCoherent(i, x)){
+				if (csp.isCoherent(i, x)){ // verification de mon CSP, si mon affectation est coherente
 					valide = true;
-					//System.out.println("coherent" +i + "et "+ x);
+					
 				}
 			}
-			if (!valide){
+			if (!valide){ // si mon csp n'est pas coherent
 
 				domaines.put(i, new ArrayList<Integer>(csp.getListeVariables().get(i).getDomaine()));
 				i--;
-				solution.assignation.remove(i);
+				solution.assignation.remove(i); // on supprime l'assignation de ma variable : on fait du backtracking
 			}
 			else{
 				solution.assignation.put(i, x);
 				i++;
 			}	
 		}
-		if (i == -1 || solution.assignation.isEmpty())
+		if (i == -1 || solution.assignation.isEmpty()) // si mon CSP n'as pas de solutions
 		{
 			System.out.println("BackTracking : UNSAT (pas de solution)");
 			return solution= null;
@@ -56,13 +55,14 @@ public class Backtracking
 		Iterator iterator = solution.assignation.entrySet().iterator();
         while (iterator.hasNext()) {
           Map.Entry mapentry = (Map.Entry) iterator.next();
-          System.out.println("variable: "+mapentry.getKey()
+          System.out.println("variable: "+mapentry.getKey()				// on affiche UNE solution de mon CSP
                             + " | valeur: " + mapentry.getValue());
         } 
 
 		return solution;
 	}
 
+	// on affecte la valeur de la solution à ma variables : en gros on assigne ma variable
 	public void affecteVariableValeurs(CSP csp, Solution solution)
 	{
 		for(int k=0; k< csp.nbVar; k++)
@@ -76,8 +76,7 @@ public class Backtracking
 					csp.listeVariables.get(k).setValeur((int) mapentry.getValue());
 				}
 	        } 
-				//System.out.println(e.getValue());
-				
+
 			
 		}
 	}

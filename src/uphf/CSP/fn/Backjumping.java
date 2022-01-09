@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import uphf.CSP.CSP;
 
-public class Backjumping {
+/**public class Backjumping {
 
-	/** public long backjumping(CSP csp) {
+	 public long backjumping(CSP csp) {
 		int i = 0, j = 0, valeur = 0;
 		boolean valide;
 		
@@ -62,5 +62,6 @@ public class Backjumping {
 			// on affiche les solutions
 		}
 	}
-**/
+
 }
+**/

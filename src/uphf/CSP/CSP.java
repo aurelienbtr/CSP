@@ -8,34 +8,20 @@ public class CSP {
 
 	public double durete; // on supprime un pourcentage (durete%) des contraintes
 	public ArrayList<Arcs> listeArcs = new ArrayList<Arcs>();
-	public int densite;
-	public int nbVar;
-
-	public int nbContraintes;
-	//public int tailleDomaine;
-	public ArrayList<Variables> listeVariables = new ArrayList<Variables>();
-	//public ArrayList<Domaines> listeDomaine;
-	public ArrayList<Integer> listeDomaine;
-	//public ArrayList<Integer> arcEntree;
-	//public ArrayList<Integer> arcSortie;
-
+	public int densite; // densite d'arcs voulu par le CSP
+	public int nbVar; // nombre de variables du CSP
+	public int nbContraintes; // nombre de contraintes du CSP
+	public ArrayList<Variables> listeVariables = new ArrayList<Variables>(); // toutes les variables de mon csp
+	public ArrayList<Integer> listeDomaine; // liste des domaines
 	public ArrayList<Contraintes> listeContraintes = new ArrayList<Contraintes>(); // toutes les contraintes de mon CSP
 
-
-	//public ArrayList<Integer> listeValeurs; // la liste des valeurs du domaine
 
 	public void createCSP(int tailleDomaine, double durete, int nbVar, double densite)
 	{
 
 		double densiteMtn = 1.0; // la densite est de base egal à 1
 		double dureteMtn = 1.0; // la durete est de base egal a 100
-		int nbArcs = 0;
-		int nbMaxArcs= 0;
 
-		//int nbContraintes =0;
-
-		//ArrayList<ArrayList<Integer>> listeValeursDomaines = new ArrayList<ArrayList<Integer>>();
-		//ArrayList<Variables> listeVariables = new ArrayList<Variables>();
 
 
 		/**
@@ -108,14 +94,14 @@ public class CSP {
 		/**
 		 * ON SUPPRIME UN NB D'ARCS SELON LA DENSITE QUE L'ON SOUHAITE
 		 */
-
+		int nbArcs = 0;
+		int nbMaxArcs= 0;
 
 		//je suppose que l'on demarre avec une densite de 100
 		// et nous voulons avoir une densite voulu
 		// sachant que la densite est le nombre d'arc divise par le nombre d'arc maximum possible
 
 		nbArcs= listeArcs.size();
-		//System.out.println("Il y a "+ nbArcs +" arcs en tout");
 		nbMaxArcs = listeArcs.size();
 
 		while(densiteMtn > densite) //100 > 50
@@ -125,9 +111,6 @@ public class CSP {
 			nbArcs= nbArcs-1;
 
 		}
-		/**	for(int i=0; i< nbArcs; i++)
-		{System.out.println("il y a"+this.listeArcs.get(i).getListeContraintes().size()+" contraintes sur cet arc");}
-		 **/
 
 		// a partir d'ici logiquement il y aura plus de contraintes que d'arcs
 
@@ -136,13 +119,10 @@ public class CSP {
 		 */
 
 		int nbContraintesMax = this.listeContraintes.size();
-		
+
 		for(int i=0; i < nbContraintesMax; i++)
 		{
-			//			System.out.println("Il y  a " + this.listeArcs.get(i).getListeContraintes().size() + "contraintes");
 			nbContraintes = this.listeContraintes.size();
-			//	System.out.println("nb contraintes = "+ nbContraintes);
-
 			while (dureteMtn > durete)
 			{
 				int auhasard = new Random().nextInt(nbContraintes);
@@ -150,14 +130,11 @@ public class CSP {
 				int s1,s2=0;
 				s1=this.listeContraintes.get(auhasard).getSommet1();
 				s2=this.listeContraintes.get(auhasard).getSommet2();
-				
-					this.listeContraintes.remove(auhasard);
-					System.out.println("une contraine a ete supprime" + s1 + " avec "+s2);
-					System.out.println(this.listeArcs.size());
-					//ok
-				
-				 // on supprime une contrainte au hasard pour atteindre la durete souhaite.
-				
+
+				this.listeContraintes.remove(auhasard);
+				System.out.println("une contraine a ete supprime" + s1 + " avec "+s2);
+
+
 
 				// SI ON SUPPRIME UNE CONTRAINTES ALORS ON SUPPRIME EGALEMENT L'ARC
 				for(int j=0; j<this.listeArcs.size(); j++)
@@ -172,7 +149,6 @@ public class CSP {
 
 
 				nbContraintes=nbContraintes-1;
-				//	System.out.println(this.listeArcs.size());
 				System.out.println(nbContraintes);
 				System.out.println(nbContraintesMax);
 				dureteMtn = nbContraintes * 1.0 / nbContraintesMax;
@@ -246,17 +222,6 @@ public class CSP {
 	}
 
 
-	/**	public void genererContraintes3(Variables v1, Variables v2) {
-		for(int i = 0; i < v1.getDomaine().listeValeurs.size(); i++) {
-			for(int j = 0; j < v2.getDomaine().listeValeurs.size(); j++) {
-				//Contraintes c = new Contraintes(v1.getDomaine().listeValeurs.get(i), v2.getDomaine().listeValeurs.get(j));
-				Contraintes c = new Contraintes(v1.getIdV(), v2.getIdV());
-				listeContraintes.add(c);
-			}
-		}
-	}
-	 **/
-
 
 	/** FONCTION QUI PERMET DE VERIFIER LA CREATION DU CSP
 	 * EN EFFET, SI IL EXISTE DES ARCS SANS CONTRAINTES ALORS LE CSP NEST PAS VALIDE
@@ -308,6 +273,7 @@ public class CSP {
 			System.out.println(" La valeur du noeud " + i + " : " + this.listeVariables.get(i).getValeur() + "\n");
 	}
 
+	
 	/**
 	 * FONCTION QUI PERMET DE SAVOIR SI UNE SOLUTION POUR UNE VARIABLE EST COHERENTE AVEC LES AUTRES, AVEC LE CSP...
 	 * 
@@ -345,10 +311,8 @@ public class CSP {
 	{
 		for (Arcs a : this.listeArcs)
 		{
-		//	System.out.println(a.getListeContraintes().get(0).getSommet1());
 			if ((a.getListeContraintes().get(0).getSommet1()== v1.getIdV()) && (a.getListeContraintes().get(0).getSommet2()==v2.getIdV()) || ( (a.getListeContraintes().get(0).getSommet1()== (v2.getIdV()) && (a.getListeContraintes().get(0).getSommet2() ==v1.getIdV()))))
 			{
-				//System.out.println("contraintes trouver !!!!!! entre"+v1.getIdV()+ "et "+ v2.getIdV());
 				return a.getListeContraintes().get(0);
 			}
 		}

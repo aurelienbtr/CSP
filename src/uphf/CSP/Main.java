@@ -1,9 +1,8 @@
 package uphf.CSP;
-import java.util.ArrayList;
 
-import uphf.CSP.fn.Backjumping;
+
+//import uphf.CSP.fn.Backjumping;
 import uphf.CSP.fn.Backtracking;
-import uphf.CSP.fn.ForwardChecking;
 import uphf.CSP.fn.Solution;
 
 public class Main {
@@ -11,8 +10,8 @@ public class Main {
 	static CSP csp = new CSP();
 
 	static Backtracking BT = new Backtracking();
-	static Backjumping BJ = new Backjumping();
-	static ForwardChecking FC = new ForwardChecking();
+	//static Backjumping BJ = new Backjumping();
+	//static ForwardChecking FC = new ForwardChecking();
 	static Solution s = new Solution();
 
 	public static void main(String[] args) {
@@ -23,16 +22,16 @@ public class Main {
 
 		// on implemente 3 algos
 
-		// backtracking chronologique
+			// backtracking chronologique
 
-		// back jumping
+			// back jumping
 
-		// forward checking
+			// forward checking
 
 		//int tailleDomaine, int durete(contraintes), int nbVar, int densite (arcs)
 		
 		
-		csp.createCSP(3, 1, 4,0.8); // CSP avec des domaines de 3, une durete de 30%, 4 variables, et une densite de 50%
+		csp.createCSP(3, 1, 4,0.8); // CSP avec des domaines de 3, une durete de 100%, 4 variables, et une densite de 80%
 		if (csp.verifCSP()) // si chaque arcs contient au moins une contrainte
 		{
 			csp.afficherCSP();
@@ -40,12 +39,9 @@ public class Main {
 			System.out.println("\n --- BACK TRACKING --- \n");
 			long debutExec = System.currentTimeMillis();
 			
-			
-		//	System.out.println("LES SOLUTIOOOOONS");
+			;
 			BT.BackT(csp);
 			System.out.println("Temps de resolution BT = " + (System.currentTimeMillis() - debutExec) + " ms");
-			//
-			//s.toString();			
 
 		/**	System.out.println("\n --- BACK JUMPING --- \n");
 

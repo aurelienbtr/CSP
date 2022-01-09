@@ -7,10 +7,10 @@ public class Variables {
 	// LES VARIABLES CEST DES NOEUDS
 
 	public int idV; // le nom/id  de la variable
-	public int valeur;
-	
+	public int valeur; // l'assignation de ma variable
+	 
 
-	//public Domaines domaine; // le domaine lié à la variable
+
 	
 	public ArrayList<Integer> domaine;
 
@@ -25,13 +25,6 @@ public class Variables {
 	public void setIdV(int idV) {
 		this.idV = idV;
 	}
-/**	public Domaines getDomaine() {
-		return domaine;
-	}
-	public void setDomaine(Domaines domaine) {
-		this.domaine = domaine;
-	}
-**/
 	public int getValeur() {
 		return valeur;
 	}
@@ -60,14 +53,6 @@ public class Variables {
 	public String toString() {
 		return "idV=" + idV +  ", domaine=" + domaine;
 	}
-	
-/**	public void afficherDomaines(){
-        for(int i = 0; i < domaine.listeValeurs.size(); i++){
-            System.out.print(domaine.listeValeurs.get(i) + ", ");
-        }
-        System.out.println("]");
-    }
-**/
 	
 	public void afficherDomaines2()
 	{

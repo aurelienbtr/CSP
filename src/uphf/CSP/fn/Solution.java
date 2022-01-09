@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Solution {
-	
+
 	/**
 	 * CLASS qui me permettra d'avoir une solution
 	 */
 	Map<Integer, Integer> assignation;
-	
+
 	public Solution(){
 		this.assignation = new HashMap<Integer, Integer>();
 	}
@@ -21,7 +21,7 @@ public class Solution {
 			solStr += "[ Variable : " + e.getKey() + ", Valeur : " + e.getValue() + " ]\n";
 		return solStr;
 	}
-	
-	
+
+
 
 }
